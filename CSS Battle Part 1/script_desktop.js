@@ -23,6 +23,7 @@ console.log(mrpvalue);
 let mrpvalueOnly = (mrpvalue.replace('₹', '').replace(',', ''));
 console.log(mrpvalueOnly);
 
+
 let Buttonelement = document.getElementsByClassName("add-to-cart")[0];
  
 Buttonelement.addEventListener('click', function() {
@@ -39,7 +40,6 @@ Buttonelement.addEventListener('click', function() {
 })
 
 let newdiscount = document.getElementById("apply-discount");
-
 newdiscount.addEventListener('click', function() {
     let discountinput = document.getElementById("discount").value;
     console.log(discountinput);
@@ -56,7 +56,6 @@ newdiscount.addEventListener('click', function() {
         productCard.style.backgroundColor = "white";
     }
 });
-
 document.getElementById("qty").addEventListener("input", function() {
     let quantity = parseInt(this.value);
     
