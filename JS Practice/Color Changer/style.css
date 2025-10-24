@@ -1,0 +1,49 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.4s ease;
+}
+
+.palette {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.color-box {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-box:hover {
+  transform: scale(1.1);
+}
+
+/* Each color */
+#orange { background-color: orange; }
+#blue { background-color: blue; }
+#violet { background-color: violet; }
+#pink { background-color: pink; }
+
+#selectedColor {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #222;
+}

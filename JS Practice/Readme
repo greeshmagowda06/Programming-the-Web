@@ -1,0 +1,76 @@
+# JS Practice Mini Challenges – DOM Manipulation & Events
+
+Each challenge is inside its own folder with:
+- `index.html`
+- `style.css`
+- `script.js`
+
+---
+
+## How to Run
+1. Open any challenge folder (e.g., `Color Changer`).
+2. Double-click `index.html` to open it in your browser.
+3. Interact with the buttons and inputs to see the DOM updates live!
+
+---
+
+## Challenges Overview
+
+### 1. Color Changer Palette
+**Concepts:** `querySelector()`, `.style`, `.textContent`  
+- Four color boxes are displayed.  
+- Clicking a box changes the **background color** of the page and shows the color name.  
+- Includes a **Reset** button to revert to default.
+
+**Extension:** Adds dynamic text and reset functionality.
+
+---
+
+### 2. Quote Generator
+**Concepts:** `createElement`, `appendChild`, `.textContent`, `querySelector()`  
+- Displays a random “Daily Quote.”  
+- Clicking **Show New Quote** removes the old one and inserts a new one from a JS array.  
+- Quotes are styled with **random colors** each time.
+
+---
+
+### 3. Light Bulb Switch
+**Concepts:** `setAttribute`, `src`, `addEventListener("click")`  
+- A bulb image turns **ON** or **OFF** using two buttons.  
+- A **Toggle** button switches state automatically using `.classList.toggle()`  
+- Background and button text update dynamically.
+
+---
+
+### 4. Live Character Counter
+**Concepts:** `input event`, `.value`, `.textContent`, dynamic styles  
+- A textbox counts characters live (`Characters: X/100`).  
+- Counter turns **red** when over 90 characters.  
+- The **Submit** button disables when exceeding limit.
+
+---
+
+### 5. Dynamic To-Do List
+**Concepts:** `createElement`, `appendChild`, `removeChild`, click events  
+- Add new tasks via an input field.  
+- Each task has a ❌ delete button.  
+- Clicking a task toggles a `.done` class to mark it complete (strike-through).  
+
+---
+
+### 7. Simple Form Validator
+**Concepts:** `submit event`, `preventDefault()`, `.value`, `.classList`  
+- Basic login form (email + password).  
+- Validates input fields for empty or invalid entries.  
+- Displays dynamic error messages with red borders.  
+- Uses `.classList.add("error")` for visual feedback.
+
+---
+
+## Learning Goals
+- Manipulate the DOM using `querySelector`, `.innerHTML`, `.textContent`, `.style`, `.setAttribute`
+- Handle user interactions with event listeners (`click`, `input`, `submit`)
+- Dynamically create, update, and remove elements
+- Use conditional logic to control UI behavior
+
+---
