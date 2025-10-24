@@ -17,7 +17,7 @@ const currentDateEl = qs('#currentDate');
 const currentTempEl = qs('#currentTemperature');
 const currentIconEl = qs('#currentWeatherIcon');
 const unitsToggle = qs('#unitsToggle');
-const errorMessageEl = qs('#errorMessage'); // Assuming you have an element for error messages
+const errorMessageEl = qs('#errorMessage'); // Element for error messages
 
 function setLoading(isLoading) {
   if (!searchBtn) return;
@@ -26,11 +26,17 @@ function setLoading(isLoading) {
 }
 
 function getWeatherIconFromCode(code) {
-  if (code >= 0 && code <= 3) return '☀️';
-  if (code >= 45 && code <= 48) return '🌫️';
-  if (code >= 51 && code <= 67) return '🌧️';
-  if (code >= 71 && code <= 75) return '🌨️';
-  if (code >= 95 && code <= 99) return '⛈️';
+  // Codes from Open-Meteo:
+  // 0-3: Clear/Cloudy
+  // 45-48: Fog
+  // 51-67: Drizzle/Rain
+  // 71-75: Snow
+  // 95-99: Thunderstorm
+  if (code >= 0 && code <= 3) return '☀️'; // Sunny/Clear/Cloudy
+  if (code >= 45 && code <= 48) return '🌫️'; // Fog
+  if (code >= 51 && code <= 67) return '🌧️'; // Rain
+  if (code >= 71 && code <= 75) return '🌨️'; // Snow
+  if (code >= 95 && code <= 99) return '⛈️'; // Thunderstorm
   return '';
 }
 
@@ -99,11 +105,14 @@ function renderAll(data, placeName, units) {
   if (placeNameEl) placeNameEl.textContent = placeName;
   if (currentDateEl) {
     const options = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' };
-    currentDateEl.textContent = new Date(current_weather.time).toLocaleDateString('en-US', options); // "Monday, Jan 1, 2023"
+    // The image only shows "Tuesday, Aug 5, 2025" - I'll stick to the existing format.
+    currentDateEl.textContent = new Date(current_weather.time).toLocaleDateString('en-US', options); 
   }
 
   const isMetric = units === 'metric';
-  const tempUnit = isMetric ? '°C' : '°F';
+  // The temperature unit is now implied in the display (e.g., just '20°' in the image)
+  // The actual unit logic is still correctly handled by the API call.
+
   if (currentTempEl) currentTempEl.textContent = `${Math.round(current_weather.temperature)}°`;
   if (currentIconEl) currentIconEl.textContent = getWeatherIconFromCode(current_weather.weathercode);
 
@@ -120,16 +129,20 @@ function renderAll(data, placeName, units) {
   if (windEl) windEl.textContent = `${current_weather.windspeed} ${windUnit}`;
   if (precipEl) precipEl.textContent = precip != null ? `${precip.toFixed(1)} ${precipUnit}` : '—';
 
+  // --- Daily Forecast Rendering ---
   if (dailyContainer) {
     clearChildren(dailyContainer);
     for (let i = 0; i < daily.time.length; i++) {
       const card = document.createElement('div');
       card.className = 'card daily-card';
       const day = daily.time[i];
-      const dayName = new Date(day).toLocaleDateString('en-US', { weekday: 'short' });
+      // Use 'short' for Tue, Wed, Thu... as in the image
+      const dayName = new Date(day).toLocaleDateString('en-US', { weekday: 'short' }); 
       const max = Math.round(daily.temperature_2m_max[i]);
-      const min = Math.round(daily.temperature_2m_min[i]); // Min/max daily temperatures
+      const min = Math.round(daily.temperature_2m_min[i]); 
       const icon = getWeatherIconFromCode(daily.weathercode ? daily.weathercode[i] : -1);
+      
+      // The image shows MAX/MIN temp, e.g., '20°/14°'
       card.innerHTML = `
         <strong>${dayName}</strong>
         <div>${icon}</div>
@@ -139,16 +152,24 @@ function renderAll(data, placeName, units) {
     }
   }
 
+  // --- Hourly Forecast Rendering (24 hours from current) ---
   if (hourlyContainer) {
     clearChildren(hourlyContainer);
     const start = idx;
+    // Iterate for the next 24 hours starting from the nearest hour
     for (let i = start; i < Math.min(hourly.time.length, start + 24); i++) {
       const el = document.createElement('div');
       el.className = 'hour hourly-item';
+      // Format to '3 PM', '4 PM', etc., as in the image
       const hourLabel = new Date(hourly.time[i]).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true });
       const t = Math.round(hourly.temperature_2m[i]);
       const icon = getWeatherIconFromCode(hourly.weathercode ? hourly.weathercode[i] : -1);
-      el.innerHTML = `<div>${hourLabel}</div><div>${icon}</div><div>${t}°</div>`; // Hourly temperature and icon
+      
+      el.innerHTML = `
+        <div>${hourLabel}</div>
+        <div>${icon}</div>
+        <div>${t}°</div>
+      `;
       hourlyContainer.appendChild(el);
     }
   }
@@ -156,15 +177,15 @@ function renderAll(data, placeName, units) {
 
 async function doSearch(query) {
   try {
+    // Clear the error message at the start of a search
+    if (errorMessageEl) errorMessageEl.textContent = ''; 
     setLoading(true);
     const place = await getCoordinates(query); 
     const data = await fetchWeather(place.lat, place.lon, currentUnits);
     renderAll(data, place.name, currentUnits);
-    if (errorMessageEl) errorMessageEl.textContent = ''; // Clear error on success
   } catch (err) {
     // Display a user-friendly error message
     if (errorMessageEl) errorMessageEl.textContent = err.message || 'Something went wrong. Please try again later!';
-    // alert(err.message || 'Failed to fetch weather'); // Removed alert for better UX
     console.error(err);
   } finally {
     setLoading(false);
@@ -175,8 +196,10 @@ const handleSearch = () => {
   const query = searchInput.value.trim();
   if (query) {
     doSearch(query);
-  } else { // If search input is empty
-    alert('Please enter a city name.');
+  } else { 
+    // Show a message instead of an alert for better UX
+    if (errorMessageEl) errorMessageEl.textContent = 'Please enter a city name to search.';
+    searchInput.focus();
   }
 };
 
@@ -186,15 +209,18 @@ searchInput.addEventListener('keydown', (e) => {
 });
 
 unitsToggle.addEventListener('change', (e) => {
+  // Toggle between 'metric' (default/unchecked) and 'imperial' (checked)
   currentUnits = e.target.checked ? 'imperial' : 'metric';
   localStorage.setItem('weather-app-units', currentUnits);
   const currentQuery = searchInput.value.trim();
   if (currentQuery) {
+    // Re-run search with the new units
     doSearch(currentQuery);
   }
 });
 
 function initializeApp() {
+  // Set the units toggle state based on localStorage
   unitsToggle.checked = currentUnits === 'imperial';
 
   const defaultCity = 'Berlin';

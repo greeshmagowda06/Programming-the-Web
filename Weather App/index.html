@@ -12,68 +12,76 @@
   <body>
     <main class="container">
       <header class="app-header">
-        <div class="logo">Weather App</div>
-        <div class="units-control" aria-label="Temperature units selector">
+        <div class="logo">Weather Now</div> <div class="units-control" aria-label="Temperature units selector">
           <span aria-hidden="true">°C</span>
           <label class="switch" for="unitsToggle">
             <input type="checkbox" id="unitsToggle" role="switch" aria-checked="false" aria-label="Toggle between Celsius and Fahrenheit">
             <span class="slider round" aria-hidden="true"></span>
           </label>
           <span>°F</span>
+          <span class="units-label">Units ⌄</span>
         </div>
       </header>
+
       <h1>How's the sky looking today?</h1>
 
       <div class="search-row">
-        <input id="search" type="search" placeholder="Search" aria-label="Search for a city" />
+        <input id="search" type="search" placeholder="Search for a place..." aria-label="Search for a city" />
         <button id="searchBtn">Search</button>
       </div>
 
-      <section class="current">
-        <div class="current-info">
-          <h2 id="placeName">—</h2>
-          <p id="currentDate">—</p>
-        </div>
-        <div class="current-display">
-          <span id="currentWeatherIcon" class="weather-icon-large"></span>
-          <p id="currentTemperature" class="temp-large">—</p>
-        </div>
-      </section>
+      <div class="main-content">
+        <div class="left-column">
+          <section class="current card"> 
+            <div class="current-info">
+              <h2 id="placeName">—</h2>
+              <p id="currentDate">—</p>
+            </div>
+            <div class="current-display">
+              <span id="currentWeatherIcon" class="weather-icon-large"></span>
+              <p id="currentTemperature" class="temp-large">—</p>
+            </div>
+          </section>
 
-      <section class="metrics">
-        <div class="metric-item">
-          <h4>Feels like</h4>
-          <p id="feelsLike">—</p>
-        </div>
-        <div class="metric-item">
-          <h4>Humidity</h4>
-          <p id="humidity">—</p>
-        </div>
-        <div class="metric-item">
-          <h4>Wind</h4>
-          <p id="wind">—</p>
-        </div>
-        <div class="metric-item">
-          <h4>Precipitation</h4>
-          <p id="precipitation">—</p>
-        </div>
-      </section>
+          <section class="metrics">
+            <div class="metric-item">
+              <h4>Feels Like</h4>
+              <p id="feelsLike">—</p>
+            </div>
+            <div class="metric-item">
+              <h4>Humidity</h4>
+              <p id="humidity">—</p>
+            </div>
+            <div class="metric-item">
+              <h4>Wind</h4>
+              <p id="wind">—</p>
+            </div>
+            <div class="metric-item">
+              <h4>Precipitation</h4>
+              <p id="precipitation">—</p>
+            </div>
+          </section>
 
-      <section>
-        <h2>Daily forecast</h2>
-        <div id="dailyForecast" class="forecast-list">
+          <section class="daily-forecast-section">
+            <h2>Daily forecast</h2>
+            <div id="dailyForecast" class="forecast-list card">
+            </div>
+          </section>
         </div>
-      </section>
 
-      <section>
-        <h2>Hourly forecast</h2>
-        <div id="hourlyForecast" class="forecast-list">
+        <div class="right-column">
+          <section class="hourly-forecast-section card"> 
+            <div class="hourly-header">
+              <h2>Hourly forecast</h2>
+              </div>
+            <div id="hourlyForecast" class="hourly-list">
+              </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       <p class="attribution">Weather data by <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a></p>
-
-    </main>
+      <div id="errorMessage" class="error-message"></div> </main>
     <script src="script.js"></script>
   </body>
 </html>
