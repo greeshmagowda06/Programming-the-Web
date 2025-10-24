@@ -195,7 +195,6 @@ unitsToggle.addEventListener('change', (e) => {
 });
 
 function initializeApp() {
-  // Set the units toggle based on the saved preference
   unitsToggle.checked = currentUnits === 'imperial';
 
   const defaultCity = 'Berlin';
