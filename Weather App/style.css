@@ -1,300 +1,186 @@
-@font-face {
-  font-family: 'DMSansVar';
-  src: url('./assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'BricolageGrotesque';
-  src: url('./assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-:root { 
-  /* Adjusted for a darker, more unified background look like the image */
-  --neutral-900: hsl(243, 96%, 9%); /* Very Dark Blue (Background) */
-  --neutral-800: hsl(243, 27%, 20%); 
-  --neutral-700: hsl(243, 23%, 24%); /* Card Background */
-  --neutral-600: hsl(243, 23%, 30%); 
-  --neutral-300: hsl(240, 6%, 70%); /* Light text */
-  --neutral-200: hsl(250, 6%, 84%); 
-  --neutral-0: hsl(0, 0%, 100%); 
-
-  --orange-500: hsl(28, 100%, 52%); /* Logo/Accent */
-  --blue-500: hsl(233, 67%, 56%); /* Main current card color */
-  --blue-700: hsl(248, 70%, 36%); /* Darker blue accent */
-
-  --page-max: 1200px;
-  --base-padding: 24px;
-}
-
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
+* {
   margin: 0;
-  font-family: 'DMSansVar', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 18px;
-  color: var(--neutral-0); /* Light text on dark background */
-  background: var(--neutral-900); /* Dark background */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.container {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 24px;
+body {
+  background: #0b0d23;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-h1, h2, h3, h4 {
-  margin: 0 0 12px 0;
-  font-family: 'BricolageGrotesque', 'DMSansVar', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+.weather-container {
+  background: #111436;
+  width: 900px;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
 }
 
-.attribution {
-  font-size: 11px;
-  text-align: center;
-  color: var(--neutral-300);
-  margin-top: 32px;
-}
-.attribution a { color: var(--orange-500); }
-
-@media (min-width: 1024px) {
-  :root { --page-max: 1100px; }
-  /* Two-column layout for larger screens */
-  .main-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* Left column wider than right */
-    gap: 32px;
-  }
-  .hourly-forecast-section {
-    position: sticky;
-    top: 24px; /* Sticks to the top of the viewport for scrolling */
-  }
-}
-
-.app-header {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
 }
 
 .logo {
-  font-family: 'BricolageGrotesque', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--orange-500);
-}
-
-.units-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: var(--neutral-300);
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--neutral-700);
-  cursor: pointer;
-}
-/* Hide the unit labels (C/F) that appear next to the switch in the mobile view */
-.units-control > span:not(.units-label) {
-    display: none;
-}
-.units-label {
-    color: var(--neutral-0);
-    margin-left: 8px;
-}
-/* Keeping switch styles for functionality */
-.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--neutral-600); transition: .4s; }
-.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; }
-input:checked + .slider { background-color: var(--orange-500); }
-input:focus + .slider { box-shadow: 0 0 1px var(--orange-500); }
-input:checked + .slider:before { transform: translateX(24px); }
-.slider.round { border-radius: 34px; }
-.slider.round:before { border-radius: 50%; }
-
-
-h1 {
-  font-size: 2.2rem;
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.search-row { display: flex; gap: 12px; margin-bottom: 40px; justify-content: center; }
-.search-row input { 
-  flex: 0 1 350px; /* Max width for input */
-  padding: 12px 20px; 
-  border: 1px solid var(--neutral-700); 
-  border-radius: 10px; 
-  background-color: var(--neutral-700);
-  color: var(--neutral-0);
-  font-size: 1.1rem;
-}
-.search-row input::placeholder { color: var(--neutral-300); }
-.search-row button { 
-  padding: 12px 24px; 
-  border-radius: 10px; 
-  background-color: var(--orange-500);
-  color: var(--neutral-0);
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
-  font-size: 1.1rem;
-}
-.search-row button:hover { background-color: var(--blue-700); }
-
-/* Card base style */
-.card {
-  background-color: var(--neutral-700);
-  border-radius: 16px;
-  padding: 24px;
-}
-
-.current { 
-  background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  padding: 32px 24px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-.current h2 { font-size: 2rem; margin-bottom: 4px; }
-.current p { margin: 0; opacity: 0.8; font-size: 1rem; }
-.current-display { display: flex; align-items: center; }
-.weather-icon-large { font-size: 3.5rem; margin-right: 16px; }
-.temp-large { font-size: 4.5rem; font-weight: 700; opacity: 1; }
-
-.metrics { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-  gap: 16px; 
-  margin-bottom: 32px; 
-  /* The metrics panel is NOT a card in the new design, the items are separate */
-}
-.metric-item { 
-  background: var(--neutral-700); 
-  padding: 20px; 
-  border-radius: 12px; 
-  text-align: center; 
-}
-.metric-item h4 { color: var(--neutral-300); font-size: 0.9rem; font-weight: 500; margin-bottom: 4px; }
-.metric-item p { font-size: 1.4rem; font-weight: 700; }
-
-section h2 { font-size: 1.5rem; margin-bottom: 16px; font-weight: 700; }
-
-.daily-forecast-section { margin-bottom: 32px; }
-
-.forecast-list { 
-  display: flex; 
-  gap: 12px; 
-  overflow-x: auto; 
-  padding: 16px 20px;
-  background-color: var(--neutral-700);
-  border-radius: 12px;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-}
-.forecast-list::-webkit-scrollbar { display: none; } 
-
-.daily-card { 
-  min-width: 90px; 
-  background: var(--neutral-800); 
-  padding: 16px 10px; 
-  border-radius: 10px; 
-  text-align: center; 
-  transition: transform 0.2s;
-}
-.daily-card:hover { transform: translateY(-3px); }
-.daily-card strong { display:block; margin-bottom:12px; font-size: 1rem; font-weight: 600; }
-.daily-card div:nth-of-type(1) { font-size: 2rem; margin-bottom: 8px; }
-.daily-card div:nth-of-type(2) { font-weight: 600; font-size: 1.1rem; }
-
-/* Hourly Forecast Styles (Right Column) */
-.hourly-forecast-section {
-  padding: 24px;
-  background-color: var(--neutral-700);
-}
-.hourly-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.hourly-header h2 { margin-bottom: 0; }
-
-.hourly-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  /* Added styles for vertical scrolling */
-  max-height: 500px; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scroll when content overflows */
-  padding-right: 8px; /* Add some padding to see the scrollbar */
-  /* Hide scrollbar on some browsers for cleaner look, but keep functionality */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.hourly-list::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
-}
-
-
-.hourly-item { 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 16px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-.hourly-item:hover {
-  background-color: var(--neutral-800);
-}
-.hourly-item > div:nth-of-type(1) { /* Time */
-  font-size: 1rem;
-  color: var(--neutral-0);
-  font-weight: 500;
-}
-.hourly-item > div:nth-of-type(2) { /* Icon */
-  font-size: 1.4rem;
-}
-.hourly-item > div:nth-of-type(3) { /* Temp */
-  font-weight: 600;
   font-size: 1.2rem;
 }
-/* Adjust hourly list for mobile to prevent weird overlap/wrap */
-@media (max-width: 1023px) {
-  .hourly-forecast-section {
-    margin-top: 24px;
-  }
-  /* On mobile, make the list horizontally scrollable */
-  .hourly-list {
-      flex-direction: row;
-      overflow-x: auto;
-      overflow-y: hidden;
-      max-height: none;
-      padding-bottom: 16px; /* Space for horizontal scroll indicators */
-  }
-  .hourly-item {
-      min-width: 80px;
-      flex-direction: column;
-      text-align: center;
-      padding: 12px 8px;
-      justify-content: center;
-      gap: 8px;
-  }
+
+.unit-btn {
+  background: #232657;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.error-message {
-  color: var(--orange-500);
+.heading {
   text-align: center;
-  margin-top: 20px;
+  font-size: 1.8rem;
+  margin: 1.5rem 0;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.search-bar input {
+  width: 60%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background: #232657;
+  color: white;
+}
+
+.search-bar button {
+  background: #4a5cff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.main-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #272b7a, #3b3f9b);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.weather-info h3 {
+  font-size: 1.2rem;
+}
+
+.weather-info p {
+  color: #c9c9c9;
+  font-size: 0.9rem;
+}
+
+.temperature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.temperature span {
+  font-size: 3rem;
   font-weight: 600;
+}
+
+.temperature img {
+  width: 50px;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.detail-box {
+  background: #1c1f47;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 22%;
+  text-align: center;
+}
+
+.detail-box p {
+  font-size: 0.9rem;
+  color: #c7c7c7;
+}
+
+.forecast {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.daily, .hourly {
+  width: 48%;
+}
+
+.days, .hours {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.day, .hour {
+  background: #1c1f47;
+  padding: 0.8rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.day img, .hour img {
+  width: 25px;
+  margin: 0.4rem 0;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width:475px) {
+  .weather-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .main-card {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .details {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .forecast {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .daily, .hourly {
+    width: 100%;
+  }
 }

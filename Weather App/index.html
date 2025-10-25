@@ -1,87 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🌤 Weather App</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="/weather_app/favicon-32x32.png">
+</head>
+<body>
+<div class="weather-container">
+<header>
+<h1 class="logo">🌤 Weather App</h1>
+<div class="units">
+<button class="unit-btn">Units ⬇</button>
+</div>
+</header>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-    <title>Frontend Mentor | Weather app</title>
+<main>
+<h2 class="heading">How’s the sky looking today?</h2>
+<div class="search-bar">
+<input type="text" placeholder="Search for a place..." />
+<button>Search</button>
+</div>
 
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <main class="container">
-      <header class="app-header">
-        <div class="logo">Weather Now</div> <div class="units-control" aria-label="Temperature units selector">
-          <span aria-hidden="true">°C</span>
-          <label class="switch" for="unitsToggle">
-            <input type="checkbox" id="unitsToggle" role="switch" aria-checked="false" aria-label="Toggle between Celsius and Fahrenheit">
-            <span class="slider round" aria-hidden="true"></span>
-          </label>
-          <span>°F</span>
-          <span class="units-label">Units ⌄</span>
-        </div>
-      </header>
+<section class="main-card">
+<div class="weather-info">
+<h3>Bangalore, India</h3>
+<p>Friday, Oct 14, 2025</p>
+</div>
+<div class="temperature">
+<span>20°</span>
+<img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="sun" />
+</div>
+</section>
 
-      <h1>How's the sky looking today?</h1>
+<section class="details">
+<div class="detail-box">
+<p>Feels Like</p>
+<h4>18°</h4>
+</div>
+<div class="detail-box">
+<p>Humidity</p>
+<h4>46%</h4>
+</div>
+<div class="detail-box">
+<p>Wind</p>
+<h4>14 km/h</h4>
+</div>
+<div class="detail-box">
+<p>Ppt</p>
+<h4>0 mm</h4>
+</div>
+</section>
 
-      <div class="search-row">
-        <input id="search" type="search" placeholder="Search for a place..." aria-label="Search for a city" />
-        <button id="searchBtn">Search</button>
-      </div>
+<section class="forecast">
+<div class="daily">
+<h3>Daily forecast</h3>
+<div class="days">
+<div class="day"><p>Tue</p><img src="/weather_app/icon-sunny.webp" alt=""><p>20° / 14°</p></div>
+<div class="day"><p>Wed</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>21° / 15°</p></div>
+<div class="day"><p>Thu</p><img src="/weather_app/icon-sunny.webp" alt=""><p>24° / 14°</p></div>
+<div class="day"><p>Fri</p><img src="/weather_app/icon-rainy.webp" alt=""><p>25° / 13°</p></div>
+<div class="day"><p>Sat</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>21° / 15°</p></div>
+<div class="day"><p>Sun</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>16° / 24°</p></div>
+<div class="day"><p>Mon</p><img src="/weather_app/icon-sunny.webp" alt=""><p>24° / 15°</p></div>
+</div>
+</div>
 
-      <div class="main-content">
-        <div class="left-column">
-          <section class="current card"> 
-            <div class="current-info">
-              <h2 id="placeName">—</h2>
-              <p id="currentDate">—</p>
-            </div>
-            <div class="current-display">
-              <span id="currentWeatherIcon" class="weather-icon-large"></span>
-              <p id="currentTemperature" class="temp-large">—</p>
-            </div>
-          </section>
-
-          <section class="metrics">
-            <div class="metric-item">
-              <h4>Feels Like</h4>
-              <p id="feelsLike">—</p>
-            </div>
-            <div class="metric-item">
-              <h4>Humidity</h4>
-              <p id="humidity">—</p>
-            </div>
-            <div class="metric-item">
-              <h4>Wind</h4>
-              <p id="wind">—</p>
-            </div>
-            <div class="metric-item">
-              <h4>Precipitation</h4>
-              <p id="precipitation">—</p>
-            </div>
-          </section>
-
-          <section class="daily-forecast-section">
-            <h2>Daily forecast</h2>
-            <div id="dailyForecast" class="forecast-list card">
-            </div>
-          </section>
-        </div>
-
-        <div class="right-column">
-          <section class="hourly-forecast-section card"> 
-            <div class="hourly-header">
-              <h2>Hourly forecast</h2>
-              </div>
-            <div id="hourlyForecast" class="hourly-list">
-              </div>
-          </section>
-        </div>
-      </div>
-
-      <p class="attribution">Weather data by <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a></p>
-      <div id="errorMessage" class="error-message"></div> </main>
-    <script src="script.js"></script>
-  </body>
+<div class="hourly">
+<h3>Hourly forecast</h3>
+<div class="hours">
+<div class="hour"><p>3 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>20°</p></div>
+<div class="hour"><p>4 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>20°</p></div>
+<div class="hour"><p>5 PM</p><img src="/weather_app/icon-sunny.webp" alt=""><p>20°</p></div>
+<div class="hour"><p>6 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>19°</p></div>
+<div class="hour"><p>7 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>18°</p></div>
+<div class="hour"><p>8 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>18°</p></div>
+<div class="hour"><p>9 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>17°</p></div>
+<div class="hour"><p>10 PM</p><img src="/weather_app/icon-partly-cloudy.webp" alt=""><p>17°</p></div>
+</div>
+</div>
+</section>
+</main>
+</div>
+  <script src="script.js"></script>
+</body>
 </html>
